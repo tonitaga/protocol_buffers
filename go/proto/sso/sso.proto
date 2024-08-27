@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "github.com/tonitaga/protocol_buffers/go/proto/sso.v1";
+
+service Auth {
+    rpc RegisterUser   (RegisterUserRequest)    returns (RegisterUserResponse);
+    rpc LoginUser      (LoginUserRequest)       returns (LoginUserResponse);
+    rpc IsAdministrator(IsAdministratorRequest) returns (IsAdministratorResposne);
+}
+
+message RegisterUserRequest {
+    string username = 2;
+    string password = 3;
+}
+
+message RegisterUserResponse {
+    bool success  = 1;
+    int64 user_id = 2;
+}
+
+message LoginUserRequest {
+    string username = 1;
+    string password = 2;
+    int32  application_id = 3;
+}
+
+message LoginUserResponse {
+    string jwt_token = 1;
+}
+
+message  IsAdministratorRequest {
+    int64 user_id = 1;
+}
+
+message  IsAdministratorResposne {
+    bool is_admin = 1;
+}
